@@ -10,7 +10,6 @@ struct phonebook{
 
 int main() {
 
-    printf("%c", p);
     struct phonebook book;
     book.name[0] = 'A';
     printf("%s", book.name);
