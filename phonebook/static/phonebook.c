@@ -17,7 +17,12 @@ char* NameBase[] = {
 	"Anna",
 	"Daniel",
 	"Alex",
-	"Elizabet"
+	"Elizabet",
+	"Dana",
+	"James",
+	"Amaya",
+	"Kolett",
+	"Anton"
 };
 
 char* SurenameBase[] = {
@@ -26,30 +31,69 @@ char* SurenameBase[] = {
 	"Mercer",
 	"Sheprd",
 	"Brado",
-	"Broke"
+	"Broke",
+	"Heller",
+	"Kening",
+	"Ruks",
+	"Raily",
+	"Guera"
 };
 
 
 
 char* getSurename(int i){
-	srandom(i);
-	return SurenameBase[rand() % 5];
+	rand();
+	return SurenameBase[rand() % 10];
 };
 
 char* getName(int i){
 	
-	srandom(i);
-	return NameBase[rand() % 5];
+	rand();
+	return NameBase[rand() % 10];
 	
 };
 
 unsigned long getNumber(int i){
-	srandom(i);
-	return 80000000000 + random() % 10000000000;
-}
+	rand();
+	return 80000000000 + rand() % 10000000000;
+};
+
+void delete(struct phonebook book[N]){
+	printf("Enter the id of the subscriber you want to delete :\n");
+	int id;
+	scanf("%d", &id);
+	strcpy(book[id].name, "0");
+	strcpy(book[id].surename, "0");
+	book[id].number = 0;	
+};
+
+void showAll(struct phonebook book[N]){
+	for (int i = 0; i < N; i++){
+	printf("%d %s %s %ld\n", book[i].id, book[i].name, book[i].surename, book[i].number);
+	}
+};
+
+void add(struct phonebook book[N]){
+	int id;
+	long int number;
+	char name[16];
+	printf("Enter id what you want to add:\n");
+	scanf("%d", &id);
+	printf("Enter Name:");
+	scanf("%s", book[id].name);
+	printf("Enter Surename:");
+        scanf("%s", book[id].surename);
+	printf("Enter number:");
+	scanf("%ld", &number);
+        book[id].number = number;
+
+};
+
+
 
 int main() {
 	
+	srand(time(NULL));
 	int size = N;
 	struct phonebook book[size];
 	//book[0].id = 1;
@@ -64,9 +108,17 @@ int main() {
 		book[i].id = i;
 		strcpy(book[i].name, getName(i));
 		strcpy(book[i].surename, getSurename(i));
-		printf("%d %s %s\n", book[i].id, book[i].name, book[i].surename);
-	}	
+		book[i].number = getNumber(i);
+		printf("%d %s %s %ld\n", book[i].id, book[i].name, book[i].surename, book[i].number);
+	}
 
+	delete(book);
+
+	showAll(book);
+
+	add(book);	
+
+	showAll(book);
 
 	return 0;
 }
