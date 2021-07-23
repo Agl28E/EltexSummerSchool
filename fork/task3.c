@@ -21,9 +21,12 @@ int main(){
             printf("It is childe\n");
             printf("My PID = %d\n", getpid());
             execl("./test", "test", NULL);
+            exit(1);
 
         default:
 
             wait(NULL);
+            printf("It is Parent\n");
+            printf("My PID = %d\n", getpid());
     }
 }
