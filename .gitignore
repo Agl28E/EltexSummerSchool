@@ -53,3 +53,6 @@ dkms.conf
 
 #add vim swp
 *.swp
+threads/main
+fork/main
+fork/test
