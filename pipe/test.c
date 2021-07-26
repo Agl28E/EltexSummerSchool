@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <string.h>
 #include <unistd.h>
 #include <sys/wait.h>
 #include <errno.h>
@@ -24,10 +25,18 @@ int main() {
 
     if (id == 0) { 
         close(fd[0]);
-        int x;
-        printf("Input a number: ");
-        scanf("%d", &x);
-        if (write(fd[1], &x, sizeof(int)) == -1) {
+        char str[200];
+        printf("Input string: ");
+        fgets(str, 200, stdin);
+        str[strlen(str) - 1] = '\0';
+        
+        int n = strlen(str) + 1;
+        if (write(fd[1], &n, sizeof(int)) < 0) {
+            return 5;
+        }
+
+
+        if (write(fd[1], str, sizeof(char) * n) == -1) {
             printf("An error ocurred with writing to the pipe\n");
             return 2;
         }
@@ -35,13 +44,17 @@ int main() {
 
     } else {
         close(fd[1]);
-        int y;
-        if(read(fd[0], &y, sizeof(int)) == -1) {
+        char str[200];
+        int n;
+        if (read(fd[0], &n, sizeof(int)) < 0) {
+            return 6;
+        }
+        if (read(fd[0], str, sizeof(char) * n) == -1) {
             printf("An error ocurred with reading from the pipe\n");
             return 3;
         }
         close(fd[0]);
-        printf("Got from childe process %d\n", y);
+        printf("Got from childe process %s\n", str);
         wait(NULL);
     }
 
