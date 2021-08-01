@@ -56,3 +56,9 @@ dkms.conf
 threads/main
 fork/main
 fork/test
+socket/tests
+socket/testc
+socket/test
+pipe/test
+mutex/main
+mutex/test
