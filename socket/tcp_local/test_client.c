@@ -18,7 +18,7 @@ int main() {
         perror("socket");
         exit(1);
     }
-
+	//euf	
     memset(&server, 0, sizeof(struct sockaddr_un));
     server.sun_family = AF_LOCAL;
     strncpy(server.sun_path, SOCK_PATH, sizeof(server.sun_path) - 1);
